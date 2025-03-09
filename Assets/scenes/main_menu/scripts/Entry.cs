@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
+using TMPro;
 using Cysharp.Threading.Tasks;
 
 using IDBunker.LittleWarrior.Configs;
-using TMPro;
-using UnityEngine.UI;
+
 
 namespace IDBunker.LittleWarrior
 {
@@ -26,7 +27,8 @@ namespace IDBunker.LittleWarrior
         private async void Start()
         {
             Caching.ClearCache();
-            //preload assets
+            await Addressables.CleanBundleCache();
+
             UniTask<long> downloadSizeTask = Addressables.GetDownloadSizeAsync(Globals.PRELOADING).ToUniTask();
 
             long downloadSize = await downloadSizeTask;
